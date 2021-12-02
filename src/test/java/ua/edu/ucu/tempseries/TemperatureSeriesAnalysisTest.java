@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class TemperatureSeriesAnalysisTest {
-
     @Test
     public void testAverageWithOneElementArray() {
         // setup input data and expected result

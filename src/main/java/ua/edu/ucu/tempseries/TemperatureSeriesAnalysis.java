@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.InputMismatchException;
 
 public class TemperatureSeriesAnalysis {
+    static final int MIN_T = -273;
+    static final int MAX_T = 273;
     private double[] temperatureSeries;
     private int size;
 
@@ -16,7 +18,8 @@ public class TemperatureSeriesAnalysis {
         if (temperatureSeries.length == 0) {
             throw new IllegalArgumentException();
         }
-        this.temperatureSeries = Arrays.copyOf(temperatureSeries, temperatureSeries.length);
+        this.temperatureSeries = Arrays.copyOf(temperatureSeries,
+                temperatureSeries.length);
         this.size = temperatureSeries.length;
     }
 
@@ -38,18 +41,18 @@ public class TemperatureSeriesAnalysis {
             throw new IllegalArgumentException();
         }
         for (int i = 0; i < size; i++) {
-            sum += Math.pow((temperatureSeries[i] - mean), 2);
+            sum += (temperatureSeries[i] - mean) * (temperatureSeries[i] - mean);
         }
         double res = Math.sqrt(sum / size);
         return res;
     }
 
     public double min() {
-        return findTempClosestToValue(-273);
+        return findTempClosestToValue(MIN_T);
     }
 
     public double max() {
-        return findTempClosestToValue(273);
+        return findTempClosestToValue(MAX_T);
     }
 
     public double findTempClosestToZero() {
@@ -107,9 +110,8 @@ public class TemperatureSeriesAnalysis {
     }
 
     public int addTemps(double... temps) {
-        int min = -273;
         for (int i = 0; i < temps.length; i++) {
-            if (temps[i] < min) {
+            if (temps[i] < MIN_T) {
                 throw new InputMismatchException();
             }
         }
@@ -122,10 +124,10 @@ public class TemperatureSeriesAnalysis {
             temperatureSeries[size] = temp;
             size++;
         }
-        int temps_num = 0;
+        int tempsNum = 0;
         for (double temp : temperatureSeries) {
-            temps_num += temp;
+            tempsNum += temp;
         }
-        return temps_num;
+        return tempsNum;
     }
 }
